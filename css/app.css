@@ -1,1 +1,13 @@
 /* Copyright (c) 2022 YA-androidapp(https://github.com/YA-androidapp) All rights reserved. */
+
+
+/* List.js */
+.sort.desc:after {
+    content: "▼";
+}
+
+.sort.asc:after {
+    content: "▲";
+}
+
+/* List.js */

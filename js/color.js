@@ -1,3 +1,6 @@
+// Copyright (c) 2022 YA-androidapp(https://github.com/YA-androidapp) All rights reserved.
+
+
 const colors = [
     { "colorname": "AliceBlue", "colorcode": "#F0F8FF", "complementary": "#FFF7F0", "invert": "#0F0700" },
     { "colorname": "AntiqueWhite", "colorcode": "#FAEBD7", "complementary": "#D7E6FA", "invert": "#051428" },
@@ -147,4 +150,159 @@ const colors = [
     { "colorname": "WhiteSmoke", "colorcode": "#F5F5F5", "complementary": "#F5F5F5", "invert": "#0A0A0A" },
     { "colorname": "Yellow", "colorcode": "#FFFF00", "complementary": "#0000FF", "invert": "#0000FF" },
     { "colorname": "YellowGreen", "colorcode": "#9ACD32", "complementary": "#6532CD", "invert": "#6532CD" }
-]
+];
+
+const grays = [
+    { "colorcode": "#000000" },
+    { "colorcode": "#080808" },
+    { "colorcode": "#101010" },
+    { "colorcode": "#181818" },
+    { "colorcode": "#202020" },
+    { "colorcode": "#282828" },
+    { "colorcode": "#303030" },
+    { "colorcode": "#383838" },
+    { "colorcode": "#404040" },
+    { "colorcode": "#484848" },
+    { "colorcode": "#505050" },
+    { "colorcode": "#585858" },
+    { "colorcode": "#606060" },
+    { "colorcode": "#686868" },
+    { "colorcode": "#696969" },
+    { "colorcode": "#707070" },
+    { "colorcode": "#787878" },
+    { "colorcode": "#808080" },
+    { "colorcode": "#888888" },
+    { "colorcode": "#909090" },
+    { "colorcode": "#989898" },
+    { "colorcode": "#A0A0A0" },
+    { "colorcode": "#A8A8A8" },
+    { "colorcode": "#A9A9A9" },
+    { "colorcode": "#B0B0B0" },
+    { "colorcode": "#B8B8B8" },
+    { "colorcode": "#BEBEBE" },
+    { "colorcode": "#C0C0C0" },
+    { "colorcode": "#C8C8C8" },
+    { "colorcode": "#D0D0D0" },
+    { "colorcode": "#D3D3D3" },
+    { "colorcode": "#D8D8D8" },
+    { "colorcode": "#DCDCDC" },
+    { "colorcode": "#E0E0E0" },
+    { "colorcode": "#E8E8E8" },
+    { "colorcode": "#F0F0F0" },
+    { "colorcode": "#F5F5F5" },
+    { "colorcode": "#F8F8F8" },
+    { "colorcode": "#FFFFFF" }
+];
+
+
+const toHex = (val) => {
+    return (('00' + val.toString(16).toUpperCase()).substr(-2));
+}
+
+const colorName2Code = (colorName) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1;
+    canvas.height = 1;
+    const context = canvas.getContext('2d');
+
+    context.fillStyle = colorName;
+    context.fillRect(0, 0, 1, 1);
+    const img = context.getImageData(0, 0, 1, 1);
+    const px = img.data;
+    // const rgb = [px[0], px[1], px[2]];
+    const rgb = '#' + toHex(px[0]) + toHex(px[1]) + toHex(px[2]);
+    return rgb;
+}
+
+const getY = (colorVal) => {
+    const color = (colorVal.includes('#')) ? colorVal.substr(-6, 6) : colorName2Code(colorVal).substr(-6, 6)
+    const r = parseInt(color.substring(0, 2), 16);
+    const g = parseInt(color.substring(2, 4), 16);
+    const b = parseInt(color.substring(4, 6), 16);
+    const y = (r * 299 + g * 587 + b * 114) / 2550;
+    // console.log(color, 'y', y, 'r', r, 'g', g, 'b', b);
+    return y;
+}
+
+const isDark = (colorVal) => {
+    const y = getY(colorVal);
+    return (y < 50);
+}
+
+const generateGradation = (cStart, cEnd, num) => {
+    const rainbow = new Rainbow();
+    rainbow.setNumberRange(1, num);
+    rainbow.setSpectrum(cStart, cEnd);
+    const colors = [];
+    for (var i = 1; i <= num; i++) {
+        var hexColour = rainbow.colourAt(i);
+        colors.push('#' + hexColour);
+    }
+    return colors;
+}
+
+const rgb2hsl = (rgb) => {
+    var r = rgb[0] / 255;
+    var g = rgb[1] / 255;
+    var b = rgb[2] / 255;
+
+    var max = Math.max(r, g, b);
+    var min = Math.min(r, g, b);
+    var diff = max - min;
+
+    var h = 0;
+    var l = (max + min) / 2;
+    var s = diff / (1 - (Math.abs(max + min - 1)));
+
+    switch (min) {
+        case max:
+            h = 0;
+            break;
+        case r:
+            h = (60 * ((b - g) / diff)) + 180;
+            break;
+        case g:
+            h = (60 * ((r - b) / diff)) + 300;
+            break;
+        case b:
+            h = (60 * ((g - r) / diff)) + 60;
+            break;
+    }
+
+    return [h, s, l];
+}
+
+const rgb2hsv = (rgb) => {
+    var r = rgb[0] / 255;
+    var g = rgb[1] / 255;
+    var b = rgb[2] / 255;
+
+    var max = Math.max(r, g, b);
+    var min = Math.min(r, g, b);
+    var diff = max - min;
+
+    var h = 0;
+
+    switch (min) {
+        case max:
+            h = 0;
+            break;
+
+        case r:
+            h = (60 * ((b - g) / diff)) + 180;
+            break;
+
+        case g:
+            h = (60 * ((r - b) / diff)) + 300;
+            break;
+
+        case b:
+            h = (60 * ((g - r) / diff)) + 60;
+            break;
+    }
+
+    var s = max == 0 ? 0 : diff / max;
+    var v = max;
+
+    return [h, s, v];
+}

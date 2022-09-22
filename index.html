@@ -33,24 +33,128 @@
                         Color list
                     </button>
                 </h2>
-                <div id="collapseColorList" class="accordion-collapse collapsev show" aria-labelledby="headingColorList"
+                <div id="collapseColorList" class="accordion-collapse collapse show" aria-labelledby="headingColorList"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <div id="colors">
+                        <div id="color-list">
                             <input class="search" placeholder="Search" />
-                            <table class="table table-sm" id="color-list">
+                            <table class="table table-sm" id="color-table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">色名</th>
-                                        <th scope="col">カラーコード</th>
-                                        <th scope="col">補色</th>
-                                        <th scope="col">反転色</th>
+                                        <th class="sort" data-sort="number" style="text-align: right;">#</th>
+                                        <th class="sort" data-sort="name">色名</th>
+                                        <th class="sort" data-sort="code">カラーコード</th>
+                                        <th class="sort" data-sort="complementary">補色</th>
+                                        <th class="sort" data-sort="invert">反転色</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list">
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingGrayList">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseGrayList" aria-expanded="false" aria-controls="collapseGrayList">
+                        Gray list
+                    </button>
+                </h2>
+                <div id="collapseGrayList" class="accordion-collapse collapse" aria-labelledby="headingGrayList"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div id="gray-list">
+                            <input class="search" placeholder="Search" />
+                            <table class="table table-sm" id="gray-table">
+                                <thead>
+                                    <tr>
+                                        <th class="sort" data-sort="number" style="text-align: right;">#</th>
+                                        <th class="sort" data-sort="code">カラーコード</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingGradationList">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseGradationList" aria-expanded="false"
+                        aria-controls="collapseGradationList">
+                        Gradation list
+                    </button>
+                </h2>
+                <div id="collapseGradationList" class="accordion-collapse collapse"
+                    aria-labelledby="headingGradationList" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div id="gradation-list">
+                            <div class="row">
+                                <div class="col-1">
+                                    <input type="color" id="cStart" name="cStart" value="#ff0000" />
+                                </div>
+                                <div class="col-1">
+                                    <input type="color" id="cEnd" name="cEnd" value="#0000ff" />
+                                </div>
+                                <div class="col">
+                                    <input type="number" id="num" name="num" value="8" min="3" />
+                                </div>
+                            </div>
+                            <table class="table table-sm" id="gradation-table">
+                                <thead>
+                                    <tr>
+                                        <th class="sort" data-sort="number" style="text-align: right;">#</th>
+                                        <th class="sort" data-sort="code">カラーコード</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="gradation-tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingPicker">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapsePicker" aria-expanded="false" aria-controls="collapsePicker">
+                        Picker
+                    </button>
+                </h2>
+                <div id="collapsePicker" class="accordion-collapse collapse" aria-labelledby="headingPicker"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="row my-5">
+                            <div class="col-2" title="色相(Hue)、彩度(Saturation)、明度(Value)、透明度(Alpha)">HSVA picker</div>
+                            <div class="col-6">
+                                <div class="ColorPicker" id="sliderPicker">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div id="pickedRgba"></div>
+                                <div id="pickedHsla"></div>
+                                <div id="pickedHsva"></div>
+                                <canvas width="100" height="75" id="pickedColor"></canvas>
+                            </div>
+                        </div>
+                        <div class="row my-5">
+                            <div class="col-2">Local file</div>
+                            <div class="col-3">
+                                <input type="file" name="selectedImage" id="selectedImage">
+                            </div>
+                            <div class="col-3">
+                                <div id="loadedImage"></div>
+                            </div>
+                            <div class="col-3">
+                                <div id="clickedRgba"></div>
+                                <div id="clickedHsla"></div>
+                                <div id="clickedHsva"></div>
+                                <canvas width="100" height="75" id="clickedColor"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +166,7 @@
     <div class="container mt-5">
         <footer class="footer align-bottom text-muted text-center">
             Copyright ©
-            <script type="text/javascript"> document.write(new Date().getFullYear());</script>2022
+            <script type="text/javascript"> document.write(new Date().getFullYear());</script>
             <a href="https://github.com/YA-androidapp" target="_blank">YA-androidapp</a> All rights reserved.
         </footer>
     </div>
@@ -75,8 +179,8 @@
 
     <script src="js/app.js"></script>
     <script src="js/color.js"></script>
-
-
+    <script src="js/iro.js"></script>
+    <script src="js/rainbowvis.js"></script>
 
 </body>
 
