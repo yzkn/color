@@ -1,6 +1,15 @@
 /* Copyright (c) 2022 YA-androidapp(https://github.com/YA-androidapp) All rights reserved. */
 
 
+#clicked div {
+    padding: 10px;
+}
+
+#clickedColor {
+    margin: 20px 0;
+    width: 100%;
+}
+
 #loadedImage {
     max-width: 240px;
     width: 240px;
