@@ -30,18 +30,21 @@ const initPickerCanvas = () => {
                     const clickedRgbaElem = document.getElementById('clickedRgba');
                     clickedRgbaElem.innerText = rgbaVal;
                     clickedRgbaElem.style.color = rgbaVal;
+                    clickedRgbaElem.style.backgroundColor = (isDark(rgbaVal) ? 'white' : 'black');
 
                     const hsl = rgb2hsl(rgba);
                     const hslaVal = "hsla(" + Math.round(hsl[0]) + ", " + Math.round(hsl[1] * 100) + "%, " + Math.round(hsl[2] * 100) + "%, " + (Math.round((rgba[3] / 255) * 100) / 100) + ")";
                     const clickedHslaElem = document.getElementById('clickedHsla');
                     clickedHslaElem.innerText = hslaVal;
                     clickedHslaElem.style.color = rgbaVal;
+                    clickedHslaElem.style.backgroundColor = (isDark(rgbaVal) ? 'white' : 'black');
 
                     const hsv = rgb2hsv(rgba);
                     const hsvaVal = "hsva(" + Math.round(hsv[0]) + ", " + Math.round(hsv[1] * 100) + "%, " + Math.round(hsv[2] * 100) + "%, " + (Math.round((rgba[3] / 255) * 100) / 100) + ")";
                     const clickedHsvaElem = document.getElementById('clickedHsva');
                     clickedHsvaElem.innerText = hsvaVal;
                     clickedHsvaElem.style.color = rgbaVal;
+                    clickedHsvaElem.style.backgroundColor = (isDark(rgbaVal) ? 'white' : 'black');
 
                     const canvas2 = document.getElementById('clickedColor');
                     const context2 = canvas2.getContext('2d');
