@@ -52,11 +52,12 @@ const initPickerCanvas = () => {
                     context2.fillRect(0, 0, canvas2.width, canvas2.height);
                 }
 
-                canvas.width = canvasWidth;
-                canvas.height = canvasHeight;
+                const writeWidth = result.clientWidth;
+                const writeHeight = canvasHeight * (writeWidth / canvasWidth);
+                canvas.width = writeWidth;
+                canvas.height = writeHeight;
                 const ctx = canvas.getContext('2d');
-
-                ctx.drawImage(img, 0, 0, canvasWidth, this.height * (canvasWidth / this.width));
+                ctx.drawImage(img, 0, 0, writeWidth, writeHeight);
 
                 result.innerHTML = '';
                 result.appendChild(canvas);
