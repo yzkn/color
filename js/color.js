@@ -199,6 +199,15 @@ const toHex = (val) => {
     return (('00' + val.toString(16).toUpperCase()).substr(-2));
 }
 
+const code2Rgba = (code, alpha = 255) => {
+    let result = [];
+    result[0] = parseInt(code.substring(1, 3), 16);
+    result[1] = parseInt(code.substring(3, 5), 16);
+    result[2] = parseInt(code.substring(5, 7), 16);
+    result[3] = alpha;
+    return result;
+}
+
 const colorName2Code = (colorName) => {
     const canvas = document.createElement('canvas');
     canvas.width = 1;

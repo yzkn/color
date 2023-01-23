@@ -6,13 +6,20 @@
 }
 
 #clickedColor {
+    height: 75px;
     margin: 20px 0;
-    width: 100%;
+    width: 100px;
 }
 
 #loadedImage {
     max-width: 240px;
     width: 240px;
+}
+
+#pickedColor {
+    height: 75px;
+    margin: 20px 0;
+    width: 100px;
 }
 
 /* List.js */

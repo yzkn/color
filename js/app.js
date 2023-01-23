@@ -70,6 +70,50 @@ const initPickerCanvas = () => {
     }, false);
 }
 
+const initEyeDropper = () => {
+    var openEye = document.getElementById('openEye');
+
+    if (window.EyeDropper) {
+        openEye.disabled = false;
+        openEye.addEventListener('click', async () => {
+            const eyeDropper = new EyeDropper();
+            const result = await eyeDropper.open();
+
+            let rgba = code2Rgba(result.sRGBHex);
+            const rgbaVal = "rgba(" + rgba[0] + ", " + rgba[1] + ", " + rgba[2] + ", " + (rgba[3] / 255) + ")";
+
+            console.log('result', result, rgba, rgbaVal);
+
+            const eyeRgbaElem = document.getElementById('eyeRgba');
+            eyeRgbaElem.innerText = rgbaVal;
+            eyeRgbaElem.style.color = rgbaVal;
+            eyeRgbaElem.style.backgroundColor = (isDark(rgbaVal) ? 'white' : 'black');
+
+            const hsl = rgb2hsl(rgba);
+            const hslaVal = "hsla(" + Math.round(hsl[0]) + ", " + Math.round(hsl[1] * 100) + "%, " + Math.round(hsl[2] * 100) + "%, " + (Math.round((rgba[3] / 255) * 100) / 100) + ")";
+            const eyeHslaElem = document.getElementById('eyeHsla');
+            eyeHslaElem.innerText = hslaVal;
+            eyeHslaElem.style.color = rgbaVal;
+            eyeHslaElem.style.backgroundColor = (isDark(rgbaVal) ? 'white' : 'black');
+
+            const hsv = rgb2hsv(rgba);
+            const hsvaVal = "hsva(" + Math.round(hsv[0]) + ", " + Math.round(hsv[1] * 100) + "%, " + Math.round(hsv[2] * 100) + "%, " + (Math.round((rgba[3] / 255) * 100) / 100) + ")";
+            const eyeHsvaElem = document.getElementById('eyeHsva');
+            eyeHsvaElem.innerText = hsvaVal;
+            eyeHsvaElem.style.color = rgbaVal;
+            eyeHsvaElem.style.backgroundColor = (isDark(rgbaVal) ? 'white' : 'black');
+
+            const canvas2 = document.getElementById('eyeColor');
+            const context2 = canvas2.getContext('2d');
+            context2.clearRect(0, 0, canvas2.width, canvas2.height);
+
+            context2.beginPath();
+            context2.fillStyle = rgbaVal;
+            context2.fillRect(0, 0, canvas2.width, canvas2.height);
+        }, false);
+    }
+}
+
 const initColorJs = () => {
     var sliderPicker = new iro.ColorPicker("#sliderPicker", {
         width: 250,
@@ -109,15 +153,18 @@ const initColorJs = () => {
             // console.log(color, color.index, color.hexString);
             const pickedHslaElem = document.getElementById('pickedHsla');
             pickedHslaElem.innerText = color.hslaString;
+            pickedHslaElem.style.backgroundColor = (isDark(color.hslaString) ? 'white' : 'black');
             pickedHslaElem.style.color = color.rgbaString;
 
             const pickedHsvaElem = document.getElementById('pickedHsva');
             const hsvaString = "hsva(" + Math.round(color.hsva.h) + ", " + color.hsva.s + "%, " + color.hsva.v + "%, " + color.hsva.a + ")";
             pickedHsvaElem.innerText = hsvaString;
+            pickedHsvaElem.style.backgroundColor = (isDark(color.hslaString) ? 'white' : 'black');
             pickedHsvaElem.style.color = color.rgbaString;
 
             const pickedRgbaElem = document.getElementById('pickedRgba');
             pickedRgbaElem.innerText = color.rgbaString;
+            pickedRgbaElem.style.backgroundColor = (isDark(color.hslaString) ? 'white' : 'black');
             pickedRgbaElem.style.color = color.rgbaString;
 
             const canvas = document.getElementById('pickedColor');
@@ -224,6 +271,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     initPickerCanvas();
     initColorJs();
+    initEyeDropper();
     initListJs();
 
     loadGradationTable();
