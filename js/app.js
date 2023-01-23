@@ -27,6 +27,12 @@ const initPickerCanvas = () => {
                     const rgba = imgData.data;
                     const rgbaVal = "rgba(" + rgba[0] + ", " + rgba[1] + ", " + rgba[2] + ", " + (rgba[3] / 255) + ")";
 
+                    const codeVal = "#" + toHex(rgba[0]) + toHex(rgba[1]) + toHex(rgba[2]);
+                    const clickedCodeElem = document.getElementById('clickedCode');
+                    clickedCodeElem.innerText = codeVal;
+                    clickedCodeElem.style.color = rgbaVal;
+                    clickedCodeElem.style.backgroundColor = (isDark(rgbaVal) ? 'white' : 'black');
+
                     const clickedRgbaElem = document.getElementById('clickedRgba');
                     clickedRgbaElem.innerText = rgbaVal;
                     clickedRgbaElem.style.color = rgbaVal;
@@ -83,6 +89,11 @@ const initEyeDropper = () => {
             const rgbaVal = "rgba(" + rgba[0] + ", " + rgba[1] + ", " + rgba[2] + ", " + (rgba[3] / 255) + ")";
 
             console.log('result', result, rgba, rgbaVal);
+
+            const eyeCodeElem = document.getElementById('eyeCode');
+            eyeCodeElem.innerText = result.sRGBHex;
+            eyeCodeElem.style.color = rgbaVal;
+            eyeCodeElem.style.backgroundColor = (isDark(rgbaVal) ? 'white' : 'black');
 
             const eyeRgbaElem = document.getElementById('eyeRgba');
             eyeRgbaElem.innerText = rgbaVal;
@@ -166,6 +177,11 @@ const initColorJs = () => {
             pickedRgbaElem.innerText = color.rgbaString;
             pickedRgbaElem.style.backgroundColor = (isDark(color.hslaString) ? 'white' : 'black');
             pickedRgbaElem.style.color = color.rgbaString;
+
+            const pickedCodeElem = document.getElementById('pickedCode');
+            pickedCodeElem.innerText = color.hexString;
+            pickedCodeElem.style.backgroundColor = (isDark(color.hslaString) ? 'white' : 'black');
+            pickedCodeElem.style.color = color.rgbaString;
 
             const canvas = document.getElementById('pickedColor');
             const context = canvas.getContext('2d');
