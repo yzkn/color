@@ -1,19 +1,21 @@
 /* Copyright (c) 2022 YA-androidapp(https://github.com/YA-androidapp) All rights reserved. */
 
 
-#clicked div {
-    padding: 10px;
-}
-
 #clickedColor {
     height: 75px;
     margin: 20px 0;
     width: 100px;
 }
 
+#eyeColor {
+    height: 75px;
+    margin: 20px 0;
+    width: 100px;
+}
+
 #loadedImage {
-    max-width: 240px;
-    width: 240px;
+    max-width: 600px;
+    width: 600px;
 }
 
 #pickedColor {
